@@ -17,11 +17,13 @@ resource "proxmox_vm_qemu" "resource-name" {
   name = "MONIORING"
   target_node = "factory"
   clone = "TEMPLATE"
+  vpus = 2
   memory = 2048
   oncreate = true
   onboot = true
   pool = "Projet-Ydays"
   agent = 1
+  ipconfig0 = "gw=192.168.10.254,ip=192.168.10.4/24"
   nameserver = "192.168.10.253"
   network {
     bridge = "vmbr2"
