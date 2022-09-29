@@ -17,11 +17,13 @@ resource "proxmox_vm_qemu" "resource-name" {
   name = "TOOLS"
   target_node = "factory"
   clone = "TEMPLATE"
-  memory = 4096
+  vcpus = 3
+  memory = 10240
   oncreate = true
   onboot = true
   pool = "Projet-Ydays"
   agent = 1
+  ipconfig0 = "gw=192.168.10.254,ip=192.168.10.2/24"
   nameserver = "192.168.10.253"
   network {
     bridge = "vmbr2"
