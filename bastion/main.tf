@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "resource-name" {
   name = "BASTION"
   target_node = "factory"
   clone = "TEMPLATE"
-  vcpus = 1
+  cores = 1
   memory = 2048
   oncreate = true
   onboot = true
@@ -25,8 +25,7 @@ resource "proxmox_vm_qemu" "resource-name" {
   agent = 1
   ipconfig0 = "gw=192.168.10.254,ip=192.168.10.1/24"
   nameserver = "192.168.10.253"
-  ciuser = "administrateur"
-  cipassword = "ubuntu"
+  bootdisk = "scsi0"
   full_clone = true
   network {
     bridge = "vmbr2"
@@ -37,7 +36,6 @@ resource "proxmox_vm_qemu" "resource-name" {
   }
   disk {
     type = "scsi"
-    format = "raw"
     storage = "DATA"
     size = "33G"
   }
