@@ -9,15 +9,15 @@ terraform {
 
 provider "proxmox" {
   pm_api_url = "https://192.168.1.2:8006/api2/json"
-  pm_user = "terraform-pro@pve"
+  pm_user = "terraform-prov@pve"
   pm_password = "terraform"
 }
 
 resource "proxmox_vm_qemu" "resource-name" {
-  name = "MONIORING"
+  name = "ZABBIX"
   target_node = "factory"
   clone = "TEMPLATE"
-  vpus = 2
+  cores = 2
   memory = 2048
   oncreate = true
   onboot = true
@@ -25,6 +25,8 @@ resource "proxmox_vm_qemu" "resource-name" {
   agent = 1
   ipconfig0 = "gw=192.168.10.254,ip=192.168.10.4/24"
   nameserver = "192.168.10.253"
+  bootdisk = "scsi0"
+  full_clone = true
   network {
     bridge = "vmbr2"
     tag = 10
@@ -33,9 +35,9 @@ resource "proxmox_vm_qemu" "resource-name" {
     model = "virtio"
   }
   disk {
-    type = "virtio"
+    type = "scsi"
     storage = "DATA"
-    size = "50G"
+    size = "33G"
   }
 }
 
